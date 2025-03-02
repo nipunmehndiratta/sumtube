@@ -12,7 +12,7 @@ export const POST = async (request: Request) => {
 
     const transcript = await fetchTranscript(videoId);
     if(!transcript){
-      return handleError("Failed to fetch transcript", 502);
+      return handleError("Failed to fetch transcript", 500);
     }
 
     const summary = await summarizeText(transcript);
