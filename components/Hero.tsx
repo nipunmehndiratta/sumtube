@@ -23,11 +23,11 @@ export function Hero() {
     }
 
     return (
-        <div className="flex flex-col justify-center items-center gap-y-10">
-            <h1 className="mt-12 text-7xl text-center">
+        <div className="p-5 flex flex-col justify-center items-center gap-y-10">
+            <h1 className="mt-12 text-5xl md:text-7xl text-center">
                 AI YouTube Video Summarizer
             </h1>
-            <h2 className="text-xl text-center">Overwhelmed by Endless Content? <br/>
+            <h2 className="text-lg md:text-xl text-center">Overwhelmed by Endless Content? <br/>
                 Get the key points of any online content and focus on what matters.
             </h2>
             <div className="flex flex-col items-center gap-y-2">
@@ -38,7 +38,7 @@ export function Hero() {
             </div>
             {error && <p className="text-sm text-red-500">{error}</p>}
             </div>
-            <Image className="mt-20 border-8 border-cyan-500 rounded-xl" src={"/sample.png"} alt="sampleImage" width={"1200"} height={"1200"}/>
+            <Image className="mt-20 border-4 border-cyan-500 rounded-xl md:border-8" src={"/sample.png"} alt="sampleImage" width={"1200"} height={"1200"}/>
         </div>
     )
 }
