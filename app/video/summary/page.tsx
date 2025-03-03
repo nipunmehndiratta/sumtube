@@ -3,7 +3,7 @@ import VideoSum from "@/components/VideoSum";
 
 export default function VideoSummaryPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div className="flex justify-center items-center">Loading...</div>}>
       <VideoSum />
     </Suspense>
   );

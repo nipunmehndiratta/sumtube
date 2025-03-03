@@ -63,13 +63,13 @@ export default function VideoSum() {
   };
 
   return (
-    <div className="h-full p-5 flex justify-center gap-x-4">
+    <div className="p-5 h-full flex flex-col lg:flex-row justify-center gap-4">
     <Suspense>
       <VideoPlayer timestamp={timestamp} videoId={videoId} />
     </Suspense>
       {loading ? (
         <div
-          className="h-1/2 w-1/2 flex flex-col justify-center items-center gap-y-5"
+          className="h-1/2 w-full flex flex-col justify-center items-center gap-y-5"
           role="status"
         >
           <GridLoader size={8} color="white" />
@@ -82,17 +82,17 @@ export default function VideoSum() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="md:max-w-2xl 2xl:max-w-4xl overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-black"
+          className="flex-1 2xl:max-w-4xl overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-black"
         >
           {summary.map((item, index) => (
             <motion.div
               key={index}
-              className="flex flex-col gap-y-1"
+              className="flex flex-col gap-y-1 text-sm md:text-lg"
               variants={itemVariants}
             >
               <button
                 type="button"
-                className="flex gap-x-2 rounded hover:bg-[#282B2E] p-2"
+                className="p-2 flex gap-x-2 rounded hover:bg-[#282B2E]"
                 onClick={() => {
                   const time = item.timestamp
                     ? moment.duration(`00:${item.timestamp}`).asSeconds()
