@@ -1,5 +1,4 @@
 "use client";
-
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { Suspense, useEffect, useState, useMemo } from "react";
 import moment from "moment";
@@ -28,10 +27,7 @@ export default function VideoSum() {
   useEffect(() => {
     const fetchSummary = async () => {
       try {
-        const response = await axios.post(
-          "/api/summarize",
-          { videoId },
-        );
+        const response = await axios.post("/api/summarize", { videoId });
         if (response.data && Array.isArray(response.data.data)) {
           setSummary(response.data.data);
           setLoading(false);
@@ -51,10 +47,7 @@ export default function VideoSum() {
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.3 },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
   };
 
   const itemVariants = {
@@ -63,36 +56,39 @@ export default function VideoSum() {
   };
 
   return (
-    <div className="p-5 h-full flex flex-col lg:flex-row justify-center gap-4">
-    <Suspense>
-      <VideoPlayer timestamp={timestamp} videoId={videoId} />
-    </Suspense>
+    <div className="p-5 flex flex-col md:flex-row justify-center gap-6 max-w-7xl mx-auto max-h-[calc(100vh-80px)]">
+      <Suspense
+        fallback={<div className="w-full lg:w-1/2 h-64 bg-gray-800/30 rounded-xl animate-pulse" />}
+      >
+        <VideoPlayer timestamp={timestamp} videoId={videoId} />
+      </Suspense>
       {loading ? (
-        <div
-          className="h-1/2 w-full flex flex-col justify-center items-center gap-y-5"
-          role="status"
-        >
-          <GridLoader size={8} color="white" />
-          <span className="text-xl">Generating summary...</span>
+        <div className="w-full lg:w-1/2 flex flex-col justify-center items-center gap-y-6">
+          <GridLoader size={10} color="#22D3EE" />
+          <span className="text-lg md:text-xl text-cyan-400 animate-pulse">
+            Generating your summary...
+          </span>
         </div>
       ) : error ? (
-        <div className="text-red-500">{error}</div>
+        <div className="w-full lg:w-1/2 flex justify-center items-center text-red-400 text-lg">
+          {error}
+        </div>
       ) : (
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="flex-1 2xl:max-w-4xl overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-black"
+          className="w-full lg:w-1/2 bg-gray-800/20 backdrop-blur-md p-6 rounded-2xl shadow-lg max-h-[90vh] overflow-y-auto scrollbar-thin scrollbar-thumb-cyan-500/50 scrollbar-track-gray-900"
         >
           {summary.map((item, index) => (
             <motion.div
               key={index}
-              className="flex flex-col gap-y-1 text-sm md:text-lg"
               variants={itemVariants}
+              className="flex flex-col gap-y-3 text-sm md:text-base mb-6 last:mb-0"
             >
               <button
                 type="button"
-                className="p-2 flex gap-x-2 rounded hover:bg-[#282B2E]"
+                className="p-3 flex items-center gap-x-3 rounded-xl bg-gray-700/30 hover:bg-cyan-500/20 transition-all text-left"
                 onClick={() => {
                   const time = item.timestamp
                     ? moment.duration(`00:${item.timestamp}`).asSeconds()
@@ -101,23 +97,16 @@ export default function VideoSum() {
                 }}
                 aria-label={`Jump to ${item.timestamp} - ${item.heading}`}
               >
-                <span className="border border-gray-600 pl-2 pr-2 rounded">
+                <span className="border border-cyan-500/50 px-3 py-1 rounded-full text-cyan-300 font-medium">
                   {item.timestamp}
                 </span>
-                <span className="font-bold">{item.heading}</span>
+                <span className="font-bold text-white">{item.heading}</span>
               </button>
-              <span className="rounded hover:bg-[#282B2E] py-1 px-2">
-                {item.description}
-              </span>
-              <span className="font-semibold rounded hover:bg-[#282B2E] py-1 px-2">
-                {item.subhead}
-              </span>
-              <ul className="list-disc pl-6">
+              <p className="text-gray-300 px-3">{item.description}</p>
+              <p className="font-semibold text-cyan-300 px-3">{item.subhead}</p>
+              <ul className="list-disc pl-8 text-gray-300">
                 {item.pointsArray.map((p, index) => (
-                  <li
-                    className="rounded hover:bg-[#282B2E] py-1 px-2"
-                    key={index}
-                  >
+                  <li key={index} className="py-1">
                     {p}
                   </li>
                 ))}

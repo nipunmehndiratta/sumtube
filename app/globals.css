@@ -7,3 +7,10 @@ body {
     color: white;
     overflow-x: hidden;
 }
+@keyframes pulseSlow {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+  }
+  .animate-pulse-slow {
+    animation: pulseSlow 3s ease-in-out infinite;
+}
