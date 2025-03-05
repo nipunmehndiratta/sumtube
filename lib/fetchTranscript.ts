@@ -12,9 +12,9 @@ const youtube = await Innertube.create({
   retrieve_player: false,
 });
 
-export const fetchTranscript = async (videoUrl: string): Promise<Transcript[] | null> => {
+export const fetchTranscript = async (videoId: string): Promise<Transcript[] | null> => {
     try {
-        const info = await youtube.getInfo(videoUrl);
+        const info = await youtube.getInfo(videoId);
         const transcriptData = await info.getTranscript();
         if(!transcriptData) return null;
         const updatedTranscript: Transcript[] = [];

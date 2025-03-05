@@ -20,7 +20,16 @@ export const summarizeText = async (transcript: Transcript[]) => {
             inputs: prompt,
             provider: "hf-inference",
         });
-        return output?.generated_text?.split("</think>")[1] || null;
+
+        const rawOutput = output?.generated_text?.split("</think>")[1] || "";
+        const jsonStart = rawOutput.indexOf("[");
+        const jsonEnd = rawOutput.lastIndexOf("]");
+
+        if(jsonStart !== -1 && jsonEnd !== -1){
+            const jsonString = rawOutput.substring(jsonStart,jsonEnd + 1);
+            return JSON.parse(jsonString);
+        }
+        return null;
     } catch (error) {
         console.error(`Error in summarizing text:`, error);
         return null;

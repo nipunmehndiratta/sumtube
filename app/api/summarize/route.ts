@@ -19,7 +19,7 @@ export const POST = async (request: Request) => {
     if(!summary){
       return handleError("An unexpected error occurred", 500);
     }
-    return NextResponse.json({ status: true, data: JSON.parse(summary) });
+    return NextResponse.json({ status: true, data: summary });
   } catch (error) {
     console.error(error);
     return handleError("An unexpected error occurred", 500);

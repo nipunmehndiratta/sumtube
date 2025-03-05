@@ -1,23 +1,38 @@
-'use client'
+"use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FaYoutube } from "react-icons/fa";
+import { FaYoutube, FaCopy } from "react-icons/fa";
 import { validVideoUrl } from "@/lib/schemas";
-
 
 export function Hero() {
   const [videoUrl, setVideoUrl] = useState("");
   const router = useRouter();
   const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
+
+  const demoVideoUrl = "https://www.youtube.com/watch?v=j63bBK_ct-M";
 
   const handleSubmit = () => {
-    const isValidUrl = validVideoUrl.safeParse(videoUrl);
-    if (isValidUrl.success) {
-      router.push(`/video/summary?vid=${videoUrl.split("v=")[1]}`);
-    } else {
-      setError(isValidUrl.error.errors[0].message);
+    const result = validVideoUrl.safeParse(videoUrl);
+    
+    if (!result.success) {
+      setError(result.error.errors[0].message);
+      return;
     }
+  
+    try {
+      router.push(`/video/summary?vid=${result.data}`);
+    } catch (error) {
+      console.error("Navigation error:", error);
+    }
+  };
+
+  const handleCopy = () => {
+    setVideoUrl(demoVideoUrl);
+    navigator.clipboard.writeText(demoVideoUrl); 
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -44,6 +59,7 @@ export function Hero() {
               type="text"
               className="w-full sm:w-48 md:w-64 lg:w-96 h-10 sm:h-12 text-white bg-transparent outline-none placeholder-gray-400 text-sm sm:text-base"
               placeholder="Paste YouTube URL here"
+              value={videoUrl}
               onChange={(e) => setVideoUrl(e.target.value)}
             />
           </div>
@@ -60,6 +76,20 @@ export function Hero() {
             {error}
           </p>
         )}
+        {/* Demo Link with Copy Button */}
+        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-x-3 w-full sm:w-auto">
+          <p className="text-xs sm:text-sm text-gray-400 text-center">
+            Try a sample video: <span className="text-cyan-300">{demoVideoUrl}</span>
+          </p>
+          <button
+            type="button"
+            className="flex items-center gap-x-1 p-2 rounded-full bg-gray-700/50 hover:bg-cyan-500/20 text-cyan-300 text-xs sm:text-sm transition-all"
+            onClick={handleCopy}
+          >
+            <FaCopy className="w-4 h-4" />
+            {copied ? "Copied!" : "Copy"}
+          </button>
+        </div>
       </div>
       <Image
         className="mt-12 sm:mt-16 border-4 border-cyan-500 rounded-2xl shadow-2xl hover:scale-105 transition-transform"

@@ -2,7 +2,7 @@ import { Transcript } from "@/lib/fetchTranscript";
 
 export const videoSummaryPrompt = (transcripts: Transcript[]) => {
   return `
-    You are tasked with summarizing a YouTube video based solely on the transcript array provided at the end in string format, where each object contains 'text' and 'timestamp' properties. First, parse the stringified transcript array into an array of objects for processing. Then, create a summary of the video content using this parsed data, limiting the summary to exactly 5 timestamped entries (no more, no less). Model the output strictly after the sample summary array provided below, including 'timestamp', 'heading', 'description', 'subhead', and 'pointsArray' for each entry. The summary must reflect only the content from the provided transcript array, not the sample content or any external assumptions. Return the result as a raw JSON array—parseable by JSON.parse()—with no additional text, explanations, comments, or content before or after the array. Any deviation from this structure or inclusion of extra content is unacceptable.
+    You are tasked with summarizing a YouTube video based solely on the transcript array provided at the end in string format, where each object contains 'text' and 'timestamp' properties. Parse the stringified transcript array into an array of objects. Then, create a summary of the video content using this parsed data, limiting the summary to exactly 5 timestamped entries (no more, no less). Model the output strictly after the sample summary array provided below, including 'timestamp', 'heading', 'description', 'subhead', and 'pointsArray' for each entry. The summary must reflect only the content from the provided transcript array, not the sample content or external assumptions. Return the result as a raw JSON array—parseable by JSON.parse()—with **NO** additional text, explanations, comments or characters before or after the array. Any extra content will break the system and is strictly forbidden.
 
     Sample Summary Array for Reference (structure and style guide only, do not use its content):
     [
@@ -60,7 +60,7 @@ export const videoSummaryPrompt = (transcripts: Transcript[]) => {
     Actual Transcript Array to Process:
     ${JSON.stringify(transcripts)}
 
-    Return only the JSON array in this exact format, with no additional characters or text:
+    Return only the JSON array in this exact format, with no extra text:
     [
       {"timestamp": "...", "heading": "...", "description": "...", "subhead": "...", "pointsArray": ["...", "..."]},
       {"timestamp": "...", "heading": "...", "description": "...", "subhead": "...", "pointsArray": ["...", "..."]},
