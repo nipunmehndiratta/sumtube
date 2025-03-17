@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SumTube - AI YouTube Video Summarizer
 
-## Getting Started
+<div align="center">
+  <img src="https://raw.githubusercontent.com/nipunmehndiratta/sumtube/main/public/logo.png" alt="SumTube Logo" width="180"/>
+  <h3>Get the key points of any YouTube video in seconds</h3>
+  <div style="border: 1px solid #e1e4e8; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); overflow: hidden; max-width: 80%;">
+    <img src="https://i.postimg.cc/NF7P35wF/Screenshot-2025-03-07-at-8-56-30-PM.png" alt="SumTube Hero Screenshot" style="width: 100%; display: block;"/>
+  </div>
+</div>
+</br>
+<div align="center">
+  
+  ![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)
+  ![TypeScript](https://img.shields.io/badge/TypeScript-5.2-blue?style=for-the-badge&logo=typescript)
+  ![HuggingFace](https://img.shields.io/badge/HuggingFace-API-yellow?style=for-the-badge&logo=huggingface)
+  ![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38bdf8?style=for-the-badge&logo=tailwindcss)
+  
+</div>
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Quick Summaries**: Get concise, structured summaries of YouTube videos
+- **Timestamp Navigation**: Jump directly to specific parts of the video from the summary
+- **AI-Powered**: Advanced LLM summarization with DeepSeek R1 Distill Qwen 32B
+- **Time-Efficient**: Save time by getting the key points instead of watching entire videos
+- **Responsive Design**: Works on desktop, tablet, and mobile devices
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎬 Demo
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+![SumTube Demo](https://raw.githubusercontent.com/nipunmehndiratta/sumtube/main/public/sample.png)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Try it now at: [https://sumtube-ai.nipunm.com](https://sumtube-ai.nipunm.com)
 
-## Learn More
+## 💻 Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS
+- **Video Processing**: youtubei.js for transcript extraction
+- **AI**: Hugging Face Inference API with DeepSeek-R1-Distill-Qwen-32B
+- **Animations**: Framer Motion
+- **Styling**: Tailwind CSS with custom animations
+- **Date Handling**: Moment.js, Luxon
+- **Form Validation**: Zod
+- **API Requests**: Axios
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/nipunmehndiratta/sumtube.git
+   cd sumtube
+   ```
 
-## Deploy on Vercel
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Create a `.env.local` file in the root directory with the following variables:
+   ```
+   HUGGINGFACE_API_KEY=your_huggingface_api_key
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. Run the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## 🔍 How It Works
+
+1. **Input YouTube URL**: Users paste a YouTube video URL into the input field
+2. **Extract Video ID**: The app extracts the video ID and validates the URL
+3. **Fetch Transcript**: The app retrieves the video transcript using youtubei.js
+4. **Generate Summary**: The transcript is processed by the DeepSeek AI model
+5. **Display Summary**: The summary is presented with timestamps and key points
+6. **Interactive Navigation**: Users can click on timestamps to jump to specific video sections
+
+## 📝 License
+
+MIT License
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📧 Contact
+
+Nipun - [nipun2k.m@gmail.com](mailto:nipun2k.m@gmail.com)
+
+Project Link: [https://github.com/nipunmehndiratta/sumtube](https://github.com/nipunmehndiratta/sumtube)
+
+---
+
+<div align="center">
+  <p>Made with ❤️ in 2025</p>
+</div>
